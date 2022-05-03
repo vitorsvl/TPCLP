@@ -1,7 +1,11 @@
+
+from tokenize import String
+
+
 class Pessoa():
-    def __init__(self, nome) -> None:
-        self._nome = nome # aqui ficam os atributos
-        
+    def __init__(self, nome, endereco) -> None:
+        self._nome: String = nome # aqui ficam os atributos
+        self._endereco: String = endereco
 
 
     # aqui os métodos
