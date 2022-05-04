@@ -12,6 +12,7 @@ class Venda(Totalizavel):
         self._data: date = data
         self._cliente: Cliente = cliente # falta implementar Cliente
         self._itens: List = itens 
+    
 
     def total(self) -> float:
         return sum([item.total() for item in self._itens])
