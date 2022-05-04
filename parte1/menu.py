@@ -3,6 +3,8 @@ from rich.panel import Panel
 from rich.text import Text
 from rich.prompt import Prompt
 
+from parte1.src.Produto import Produto
+
 
 def display_menu(options):
     """
@@ -39,6 +41,29 @@ def display_menu(options):
     return int(op)
 
 
+
+
+
+def menuPrincipal():
+    opcoes = [
+        Text("Cliente"),
+        Text("Produto"),
+        Text("ItemVenda"),
+        Text("Venda")
+    ]
+    op = display_menu(opcoes)
+    if op == 1: # cliente
+        pass
+    elif op == 2: # Produto
+        pass
+
+    elif op == 3: # ItemVenda
+        pass
+
+    elif op == 4: # Venda
+        pass
+
+
 if __name__ == '__main__':
     options = [
         'opção 1',
@@ -49,3 +74,15 @@ if __name__ == '__main__':
     options = list(map(Text, options))
     Console().print(options)
     display_menu(options)
+
+# menu em linha de comando que permite a inclusão, alteração, remoção e visualização dos dados das entidades abaixo
+# menu principal:
+    # clientes
+    # produtos
+    # vendas
+
+    # submenu
+        # incluir
+        # alterar 
+        # excluir
+        # vizualizar
