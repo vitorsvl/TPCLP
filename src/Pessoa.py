@@ -4,7 +4,6 @@ class Pessoa():
         self._nome: str = nome # aqui ficam os atributos
         self._endereco: str = endereco
 
-
-    # aqui os métodos
-    # def metodo(parametros):
-        # código
+    @property
+    def nome(self):
+        return self._nome
