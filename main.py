@@ -4,10 +4,11 @@ from rich.panel import Panel
 from rich.text import Text
 from rich.prompt import Prompt
 
-from utils.str_to_date import strToDate
 
 from src.Cliente import Cliente
 from src.Produto import Produto
+from src.Venda import Venda
+from src.utils import strToDate
 from src.manipulador import alterarEntidade, excluirEntidade, printListaNumerada
 
 console = Console()
@@ -54,7 +55,6 @@ def menuPrincipal():
     opcoes = [
         Text("Cliente"),
         Text("Produto"),
-        Text("ItemVenda"),
         Text("Venda")
     ]
     while True:
@@ -72,25 +72,33 @@ def menuPrincipal():
                     endereco = input('Endereço: ')
                     rg = input('Número do RG: ')
                     datan = input('Data de nascimento (dd/mm/aaaa): ')
-                    data_nasc = strToDate(datan)
-                    print(data_nasc)
-                    cliente = Cliente(nome, endereco, rg, data_nasc)
+                    
+                    
+                    cliente = Cliente(nome, endereco, rg, datan)
                     console.print('Cliente incluído com sucesso', style='green')
                     print(cliente)
 
                 elif oc == 2: # excluir
-                    excluirEntidade('cliente', Cliente.clientes)
-
+                    if Cliente.clientes:
+                        excluirEntidade('cliente', Cliente.clientes)
+                    else:
+                        print('Não há clientes cadastrados')
                 elif oc == 3: # alterar 
-                    alterarEntidade('cliente', Cliente.clientes)
-                    console.print('Dados alterados com sucesso', style='green')
+                    if Cliente.clientes:
+                        alterarEntidade('cliente', Cliente.clientes)
+                        console.print('Dados alterados com sucesso', style='green')
+                    else:
+                        print('Não há clientes cadastrados')
 
                 elif oc == 4: # Visualizar
-                    print('Visualizar dados do cliente')
-                    printListaNumerada([c.nome for c in Cliente.clientes])
-                    p = Prompt.ask('Selecione um cliente ', choices=[str(x) for x in range(1, len(Cliente.clientes)+1)])
-                    p = int(p) - 1
-                    Cliente.clientes[p].visualizarCliente()
+                    if Cliente.clientes:
+                        print('Visualizar dados do cliente')
+                        printListaNumerada([c.nome for c in Cliente.clientes])
+                        p = Prompt.ask('Selecione um cliente ', choices=[str(x) for x in range(1, len(Cliente.clientes)+1)])
+                        p = int(p) - 1
+                        Cliente.clientes[p].visualizarCliente()
+                    else:
+                        print('Não há clientes cadastrados')
 
                 elif oc == 5: # voltar
                     break
@@ -112,27 +120,64 @@ def menuPrincipal():
                     print(produto)
                 
                 elif opr == 2: # excluir
-                    excluirEntidade('produto', Produto.produtos)
+                    if Produto.produtos:
+                        excluirEntidade('produto', Produto.produtos)
+                    else:
+                        print('Não há produtos cadastrados')
 
                 elif opr == 3: # alterar
-                    alterarEntidade('produto', Produto.produtos)
+                    if Produto.produtos:
+                        alterarEntidade('produto', Produto.produtos)
+                    else:
+                        print('Não há produtos cadastrados')
 
                 elif opr == 4: # vizualizar
-                    print('Vizualizar dados do produto')
-                    printListaNumerada([p.nome for p in Produto.produtos])
-                    p = Prompt.ask('Selecione um produto ', choices=[str(x) for x in range(1, len(Produto.produtos)+1)])
-                    p = int(p) - 1
-                    Produto.produtos[p].visualizarProduto()
+                    if Produto.produtos:
+                        print('Vizualizar dados do produto')
+                        printListaNumerada([p.nome for p in Produto.produtos])
+                        p = Prompt.ask('Selecione um produto ', choices=[str(x) for x in range(1, len(Produto.produtos)+1)])
+                        p = int(p) - 1
+                        Produto.produtos[p].visualizarProduto()
+                    else:
+                        print('Não há produtos cadastrados')
 
                 elif opr == 5: # voltar
                     break
+                    
 
 
-        elif op == 3: # ItemVenda
-            pass
+        elif op == 3:
+            while True:
+                opr = display_menu(
+                    [Text("Incluir"), Text('Excluir'), Text('Visualizar dados'), Text('Voltar')], 
+                    'Opções para venda', 'Escolha uma opção'
+                    )
+                if opr == 1:
+                    venda = Venda()
+                    console.print(f'Venda incluída com sucesso', style='green')
 
-        elif op == 4: # Venda
-            pass
+                elif opr == 2:
+                    if Venda.vendas:
+                        excluirEntidade('venda', Venda.vendas)
+                    else:
+                        print('Não há vendas cadastradas')
+
+                elif opr == 3:
+                    if Venda.vendas:
+                        print('Vizualizar dados da venda')
+                        i = 1
+                        for n, d in zip([v.numero for v in Venda.vendas], [v.data for v in Venda.vendas]):
+                            print(f'{i}. Venda Nº: {n} Data: {d}')
+                            i += 1
+                        p = Prompt.ask('Selecione uma venda ', choices=[str(x) for x in range(1, len(Venda.vendas)+1)])
+                        p = int(p) - 1
+                        Venda.vendas[p].visualizarVenda()
+                    else:
+                        print('Não há vendas cadastradas')
+
+                elif opr == 4: # voltar
+                    break
+
 
 
 if __name__ == '__main__':

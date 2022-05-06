@@ -1,5 +1,6 @@
 from rich.prompt import Prompt, Confirm
 
+
 def printListaNumerada(lista):
     i = 1
     for p in lista:
@@ -14,13 +15,24 @@ def excluirEntidade(nome, lista):
         nome: nome(tipo) da entidade [cliente, produto, venda, item]
         lista: lista de objetos da entidade escolhida
     """
-    print(f'Qual {nome} deseja excluir? ')
-    printListaNumerada([e.nome for e in lista])
-    p = Prompt.ask('Escolha uma opção ', choices=[str(x) for x in range(1, len(lista)+1)])
-    p = int(p) - 1
-    if Confirm.ask(f'Excluir {nome} {lista[p].nome} ?'):
-        lista[p].excluir()
-        print(f'{nome} excluído com sucesso')
+
+    if nome == 'venda':
+        i = 1
+        for n, d in zip([v.numero for v in lista], [v.data for v in lista]):
+            print(f'{i}. Venda Nº: {n} |  Data: {d}')
+        p = Prompt.ask('Selecione uma venda ', choices=[str(x) for x in range(1, len(lista)+1)])
+        p = int(p) - 1
+        if Confirm.ask(f'Excluir {nome} Nº{lista[p].numero} ?'):
+            lista[p].excluir()
+            print(f'{nome} excluída com sucesso')
+    else:
+        print(f'Qual {nome} deseja excluir? ')
+        printListaNumerada([e.nome for e in lista])
+        p = Prompt.ask('Escolha uma opção ', choices=[str(x) for x in range(1, len(lista)+1)])
+        p = int(p) - 1
+        if Confirm.ask(f'Excluir {nome} {lista[p].nome} ?'):
+            lista[p].excluir()
+            print(f'{nome} excluído com sucesso')
 
 
 def alterarEntidade(nome, lista):

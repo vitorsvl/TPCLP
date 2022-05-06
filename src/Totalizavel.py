@@ -1,6 +1,6 @@
 class Totalizavel():
     
-    def __init__() -> None:
+    def __init__(self) -> None:
         pass
 
     def total(self) -> float:

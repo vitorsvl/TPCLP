@@ -1,3 +1,5 @@
+
+from src.utils import strToDate
 from datetime import date
 from src.Pessoa import Pessoa
 
@@ -6,9 +8,16 @@ class Cliente(Pessoa):
     def __init__(self, nome, endereco, rg, dataNasc) -> None:
         super().__init__(nome, endereco)
         self._rg: str = rg
-        self._dataNasc: date = dataNasc
-        print(type(self._dataNasc))
+        self._dataNasc: date = strToDate(dataNasc)       
         self._incluirCliente(self) # inclui o cliente na lista no momento da inicialização
+
+    @property
+    def nome(self):
+        return self._nome       
+
+    @property
+    def rg(self):
+        return self._rg
 
     def _incluirCliente(self, cliente):
         Cliente.clientes.append(cliente)

@@ -15,6 +15,10 @@ class Produto():
     def nome(self):
         return self._nome
 
+    @property
+    def valor(self):
+        return self._valor
+
     def _incluirProduto(self, produto):
         Produto.produtos.append(produto)
 
