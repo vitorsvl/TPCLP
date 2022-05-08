@@ -38,11 +38,6 @@ class Cliente(Pessoa):
         index = Cliente.clientes.index(self)
         Cliente.clientes.pop(index)
         
-    def imprimeListaCliente(self): 
-        i = 1
-        for p in Cliente.clientes:
-            print(f'{i}. {p}')
-
     def visualizarCliente(self):
         print('-------------------------')
         print(self)

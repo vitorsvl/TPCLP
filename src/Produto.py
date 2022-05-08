@@ -34,11 +34,6 @@ class Produto():
         index = Produto.produtos.index(self)
         Produto.produtos.pop(index)
         
-    def imprimeListaProduto(self): 
-        i = 1
-        for p in Produto.produtos:
-            print(f'{i}. {p}')
-
     def visualizarProduto(self):
         print('-------------------------')
         print(self)
@@ -51,21 +46,3 @@ class Produto():
     def __repr__(self) -> str:
         return f'({self._nome}, {self._codigo}, {self._valor})'
         
-
-if __name__ == '__main__':
-    p = Produto(1, 'arroz', 23.99)
-    p1 = Produto(2, 'chocolate', 10.00)
-    p2 = Produto(3, 'banana', 1.49)
-
-    p.imprimeListaProduto()
-
-    p.alterarProduto('leite', 4.29)
-    p2.alterarProduto('farinha', 2.99)
-
-    p.imprimeListaProduto()
-    print()
-    for pp in p.produtos:
-        pp.vizualizarProduto()
-        print()
-    
-

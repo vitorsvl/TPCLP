@@ -81,21 +81,6 @@ class Venda(Totalizavel):
         d =  self._data.strftime("%d/%m/%Y")
         return f"VENDA → Nº: {self._numero}\nData: {d}\nCliente: {self._cliente.nome}\nItens: {self._itens}\nTotal da Venda: R$ {self.total()}"
 
-    # return f'({self._nome}, {self._codigo}, {self._valor})'
 
     def total(self) -> float:
         return sum([item.total() for item in self._itens])
-
-
-if __name__ == '__main__':
-    from Produto import Produto
-    c1 = Cliente('Paula', 'n sei', 'nsei', '04/12/2000')
-    p1 = Produto('arroz', 23.99)
-    p2 = Produto('milho', 3.99)
-    p3 = Produto('gengibre', 1.99)
-
-    print(Produto.produtos)
-    
-    v = Venda()
-    
-    v.visualizarVenda()

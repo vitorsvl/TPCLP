@@ -1,7 +1,7 @@
 from src.Totalizavel import Totalizavel
 from src.Produto import Produto
 
-from rich.prompt import Prompt, IntPrompt
+from rich.prompt import Prompt
 
 class ItemVenda(Totalizavel):
     def __init__(self) -> None:
